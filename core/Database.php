@@ -11,7 +11,7 @@ $dbname = "streamhive";
 
 try {
     $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $user, $pass);
-    echo "Databaseverbinding succesvol!";
+     "Databaseverbinding succesvol!";
 } catch (PDOException $e) {
-    echo "Fout bij verbinden: " . $e->getMessage();
+     "Fout bij verbinden: " . $e->getMessage();
 }
