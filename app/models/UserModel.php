@@ -1,29 +1,37 @@
 <?php
-class UserModel {
-    private PDO $conn;
 
-    public function __construct(PDO $db) {
-        $this->conn = $db;
+class UserModel 
+{
+    private $db;
+
+    public function __construct(PDO $db)
+    {
+        $this->db = $db;
     }
 
-    public function registerUser(string $email, string $password): int {
+    // User registreren
+    public function registerUser($email, $password)
+    {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$email, $hashedPassword]);
+        $query = "INSERT INTO users (email, password) VALUES (:email, :password)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $hashedPassword);
 
-        return (int)$this->conn->lastInsertId();
+        $stmt->execute();
+
+        return $this->db->lastInsertId();
     }
 
-    public function getUserByEmail(string $email): ?array {
-        $sql = "SELECT id, email, password FROM users WHERE email = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$email]);
+    // User ophalen op e-mail
+    public function getUserByEmail($email)
+    {
+        $query = "SELECT * FROM users WHERE email = :email LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
 
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $user ?: null;
+        return $stmt->fetch();
     }
-}
-?>
-    
+} 
