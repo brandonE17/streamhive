@@ -1,18 +1,29 @@
 <?php
 class UserModel {
-
-//  zorgt voor de Databaseverbinding
     private PDO $conn;
-//  constructor die de databaseverbinding accepteert en opslaat in de klasse
+
     public function __construct(PDO $db) {
         $this->conn = $db;
     }
-//  functie om een video toe te voegen aan de database
-    public function create_Video(int $userId, string $title, string $description): void {
-        $sql = "INSERT INTO videos (user_id, title, description)
-                VALUES (?, ?, ?)";
-        $stmt = $this->conn->prepare($sql); //
-        $stmt->execute([$userId, $title, $description]); //  dit voert de SQL-query uit 
+
+    public function registerUser(string $email, string $password): int {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$email, $hashedPassword]);
+
+        return (int)$this->conn->lastInsertId();
+    }
+
+    public function getUserByEmail(string $email): ?array {
+        $sql = "SELECT id, email, password FROM users WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$email]);
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user ?: null;
     }
 }
-?>  
+?>
+    
