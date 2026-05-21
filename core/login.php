@@ -8,17 +8,23 @@ $userModel = new UserModel($db);
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     $password = $_POST['psw'] ?? '';
 
-    if (!$email || empty($password)) {
+    // Basis validatie
+    if (!$email || $password === '') {
         $error = 'Vul een geldig e-mailadres en wachtwoord in.';
     } else {
+
+        // User ophalen
         $user = $userModel->getUserByEmail($email);
 
+        // Controleren of user bestaat én wachtwoord klopt
         if (!$user || !password_verify($password, $user['password'])) {
             $error = 'E-mail of wachtwoord onjuist.';
         } else {
+            // Login succesvol
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['email'];
 
@@ -37,30 +43,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <form action="login.php" method="post">
-        <div class="container">
-            <h1>Login</h1>
-            <p>Vul je gegevens in om in te loggen.</p>
-            <hr>
 
-            <?php if ($error): ?>
-                <div style="color: red; margin-bottom: 16px;"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
-            <?php endif; ?>
+<form action="login.php" method="post">
+    <div class="container">
+        <h1>Login</h1>
+        <p>Vul je gegevens in om in te loggen.</p>
+        <hr>
 
-            <label for="email"><b>E-mail</b></label>
-            <input type="text" placeholder="Enter Email" name="email" id="email" required>
+        <?php if ($error): ?>
+            <div style="color: red; margin-bottom: 16px;">
+                <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
+            </div>
+        <?php endif; ?>
 
-            <label for="psw"><b>Wachtwoord</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
-            <hr>
+        <label for="email"><b>E-mail</b></label>
+        <input type="text" placeholder="Enter Email" name="email" id="email" required>
 
-            <button type="submit" class="registerbtn">Login</button>
-        </div>
+        <label for="psw"><b>Wachtwoord</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
 
-        <div class="container signin">
-            <p>Nog geen account? <a href="../index.html">Registreer hier</a>.</p>
-        </div>
-    </form>
+        <hr>
+
+        <button type="submit" class="registerbtn">Login</button>
+    </div>
+
+    <div class="container signin">
+        <p>Nog geen account? <a href="../index.html">Registreer hier</a>.</p>
+    </div>
+</form>
+
 </body>
 </html>
- 

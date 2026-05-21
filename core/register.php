@@ -24,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['user_id'] = $userId;
         $_SESSION['username'] = $email;
 
-        header('Location: login.php');
+        header('Location: login.php'); 
         exit;
-    } catch (PDOException $e) {
-        die('Fout bij registratie: ' . $e->getMessage());
+    } catch (PDOException $e) { 
+        die('Fout bij registratie: ' . $e->getMessage()); 
     }
 }
 
