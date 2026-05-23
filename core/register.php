@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['user_id'] = $userId;
             $_SESSION['username'] = $email;
 
-            header('Location: ../login.php');
+            header('Location: ../core/login.php');
             exit; 
 
         } catch (PDOException $e) {
@@ -44,12 +44,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
 
-<form action="login.php" method="post">
+<form action="register.php" method="post">
     <div class="container">
         <h1>Registreren</h1>
         <p>Maak een nieuw account.</p>
         <hr>
-
+    
         <?php if ($error): ?>
             <div style="color:red; margin-bottom:16px;">
                 <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
