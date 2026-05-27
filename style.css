@@ -55,92 +55,99 @@ a {
 
 body {
     margin: 0;
-    background-color: #121212;
-    color: white;
+    background: #111;
     font-family: Arial, sans-serif;
+    color: #fff;
+    display: flex;
 }
 
-/* NAVBAR */
-.navbar {
-    background-color: #181818;
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    justify-content: space-between;
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background: #181818;
+    height: 100vh;
+    padding: 20px 0;
     position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 10;
 }
 
 .logo {
     font-size: 22px;
-    font-weight: 900;
-}
-.logo-stream {
-    color: white;
-}
-.logo-hive {
-    color: #e53935;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.search-bar input {
-    width: 400px;
-    padding: 8px;
-    border-radius: 4px;
-    border: none;
-    background-color: #333;
-    color: white;
+.logo .red {
+    color: #e91414;
 }
 
-.right-icons .icon {
-    width: 24px;
-    margin-left: 18px;
-}
-
-/* SIDEBAR */
-.sidebar {
-    position: fixed;
-    top: 70px;
-    left: 0;
-    width: 200px;
-    height: 100%;
-    background-color: #1b1b1b;
-    padding-top: 20px;
-}
-.side-item {
-    display: block;
+.nav-item {
+    display: flex;
+    align-items: center;
     padding: 12px 20px;
+    font-size: 15px;
     color: #ccc;
     text-decoration: none;
-    font-size: 16px;
-}
-.side-item:hover,
-.side-item.active {
-    background-color: #333;
-    color: white;
 }
 
-/* MAIN CONTENT */
-.content {
+.nav-item:hover,
+.nav-item.active {
+    background: #303030;
+    color: #fff;
+}
+
+.icon {
+    width: 20px;
+    margin-right: 14px;
+}
+
+/* Main content */
+.main {
     margin-left: 220px;
-    margin-top: 90px;
     padding: 20px;
+    width: calc(100% - 220px);
 }
 
+/* Top bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    width: 50%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+}
+
+/* Video grid */
 .video-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
 .video-card {
-    background-color: #222;
+    background: #1e1e1e;
     padding: 10px;
-    border-radius: 6px;
+    border-radius: 8px;
 }
 
 .thumb {
     width: 100%;
     border-radius: 6px;
+}
+
+.video-card h3 {
+    margin: 10px 0 5px;
+}
+
+.logout {
+    color: #e91414;
+    text-decoration: none;
+    font-weight: bold;
 }
