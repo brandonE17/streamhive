@@ -26,7 +26,7 @@ hr {
   margin-bottom: 25px;
 }
 
-/* Set a style for the submit/register button */
+
 .registerbtn {
   background-color: #04AA6D;
   color: white;
@@ -47,7 +47,7 @@ a {
   color: dodgerblue; 
 }
 
-/* Set a grey background color and center the text of the "sign in" section */
+
 .signin {
   background-color: #f1f1f1;
   text-align: center;
@@ -55,93 +55,107 @@ a {
 
 body {
     margin: 0;
-    background: #111;
     font-family: Arial, sans-serif;
-    color: #fff;
+    background: #f4f4f4;
+}
+
+/* LAYOUT */
+.layout {
     display: flex;
 }
 
-/* Sidebar */
+/* SIDEBAR */
 .sidebar {
     width: 220px;
-    background: #181818;
+    background: #ffffff;
+    border-right: 1px solid #ddd;
     height: 100vh;
-    padding: 20px 0;
-    position: fixed;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.logo {
+.sidebar .logo {
     font-size: 22px;
     font-weight: bold;
-    text-align: center;
     margin-bottom: 30px;
 }
 
-.logo .red {
-    color: #e91414;
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    font-size: 15px;
-    color: #ccc;
+.sidebar nav a {
+    display: block;
+    padding: 12px 6px;
+    color: #333;
     text-decoration: none;
+    font-size: 15px;
 }
 
-.nav-item:hover,
-.nav-item.active {
-    background: #303030;
-    color: #fff;
-}
-
-.icon {
-    width: 20px;
-    margin-right: 14px;
-}
-
-/* Main content */
-.main {
-    margin-left: 220px;
-    padding: 20px;
-    width: calc(100% - 220px);
-}
-
-/* Top bar */
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.search-bar {
-    width: 50%;
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-}
-
-/* Video grid */
-.video-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-
-
-.thumb {
-    width: 100%;
+.sidebar nav a:hover {
+    background: #f0f0f0;
     border-radius: 6px;
 }
 
-
-
-.logout {
-    color: #e91414;
-    text-decoration: none;
+.sidebar .logout {
+    color: #c00;
     font-weight: bold;
 }
+
+/* MAIN CONTENT */
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* TOP BAR */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+.search {
+    width: 60%;
+    padding: 8px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+}
+
+.profile {
+    background: #eee;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+/* VIDEO GRID */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.video-card {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.video-card .thumb {
+    background: #ccc;
+    height: 120px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.video-card .title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.video-card .meta {
+    font-size: 12px;
+    color: #666;
+} 

@@ -1,19 +1,19 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/../app/models/UserModel.php'; 
+require_once __DIR__ . '/../app/models/UserModel.php'; // dit zorgt ervoor dat de usermodel bestand word gelezen en geladen
 $db = include __DIR__ . '/Database.php';
 
 $userModel = new UserModel($db);
 
-$error = '';
+$error = ''; // een lege string om mijn foutmeldingen in op te slaan (AI)
  
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-    $password = $_POST['psw'] ?? '';
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL); 
+    $password = $_POST['psw'] ?? ''; 
 
-    if (!$email || $password === '') {
+    if (!$email || $password === '') { // als het wachtwoord leeg is dan krijjg je een foutmelding
         $error = 'Vul je e-mail en wachtwoord in.';
     } else {
         $user = $userModel->getUserByEmail($email);
