@@ -131,20 +131,14 @@ body {
     gap: 20px;
 }
 
-.video-card {
-    background: #1e1e1e;
-    padding: 10px;
-    border-radius: 8px;
-}
+
 
 .thumb {
     width: 100%;
     border-radius: 6px;
 }
 
-.video-card h3 {
-    margin: 10px 0 5px;
-}
+
 
 .logout {
     color: #e91414;

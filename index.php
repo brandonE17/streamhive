@@ -59,27 +59,9 @@ $username = $_SESSION['username'];
 
     <div class="video-grid">
 
-        <div class="video-card">
-            <img src="image/video1.jpg" class="thumb">
-            <h3>Exploring the Mountains</h3>
-            <p>Adventure World • 10K views • 2 days ago</p>
-        </div>
 
-        <div class="video-card">
-            <img src="image/video2.jpg" class="thumb">
-            <h3>How to Code in PHP</h3>
-            <p>CodeWithDev • 5K views • 1 week ago</p>
-        </div>
 
-        <div class="video-card">
-            <img src="image/video3.jpg" class="thumb">
-            <h3>Relaxing Ocean Waves</h3>
-            <p>Nature Sounds • 2K views • 3 days ago</p>
-        </div>
-
-    </div>
-
-</div>
+       
  
 </body>
 </html>
