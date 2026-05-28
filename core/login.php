@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL); 
     $password = $_POST['psw'] ?? ''; 
 
-    if (!$email || $password === '') { // als het wachtwoord leeg is dan krijjg je een foutmelding
+    if (!$email || $password === '') { // als het wachtwoord leeg is dan krijg je een foutmelding
         $error = 'Vul je e-mail en wachtwoord in.';
     } else {
         $user = $userModel->getUserByEmail($email);
