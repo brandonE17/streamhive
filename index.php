@@ -54,25 +54,7 @@ if (!isset($_SESSION['user_id'])) {
                 <p class="meta">Channel Name – 10K views – 2 days ago</p>
             </div>
 
-            <div class="video-card">
-                <div class="thumb"></div>
-                <p class="title">Video Title</p>
-                <p class="meta">Channel Name – 5K views – 1 week ago</p>
-            </div>
-
-            <div class="video-card">
-                <div class="thumb"></div>
-                <p class="title">Video Title</p>
-                <p class="meta">Channel Name – 2K views – 3 days ago</p>
-            </div>
-
-            <div class="video-card">
-                <div class="thumb"></div>
-                <p class="title">Video Title</p>
-                <p class="meta">Channel Name – 7K views – 5 days ago</p>
-            </div>
-        </div>
-
+            
     </main>
 
 </div>

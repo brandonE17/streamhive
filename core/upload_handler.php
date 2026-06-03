@@ -16,19 +16,41 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: upload.php');
     exit;
+} 
+
+function getUploadErrorMessage(array $file, string $label): string {
+    switch ($file['error'] ?? UPLOAD_ERR_NO_FILE) {
+        case UPLOAD_ERR_OK:
+            return '';
+        case UPLOAD_ERR_INI_SIZE:
+        case UPLOAD_ERR_FORM_SIZE:
+            return "Het bestand voor $label is te groot.";
+        case UPLOAD_ERR_PARTIAL:
+            return "Het bestand voor $label is slechts gedeeltelijk geüpload.";
+        case UPLOAD_ERR_NO_FILE:
+            return "Je hebt geen bestand geselecteerd voor $label.";
+        case UPLOAD_ERR_NO_TMP_DIR:
+            return "De tijdelijke uploadmap ontbreekt op de server.";
+        case UPLOAD_ERR_CANT_WRITE:
+            return "Het bestand voor $label kon niet worden opgeslagen.";
+        case UPLOAD_ERR_EXTENSION:
+            return "Een serverextensie blokkeert de upload van $label.";
+        default:
+            return "Er is een fout opgetreden bij het uploaden van $label.";
+    }
 }
 
 $title = trim($_POST['title'] ?? '');
-description = trim($_POST['description'] ?? '');
+$description = trim($_POST['description'] ?? '');
 $thumbnail = $_FILES['thumbnail'] ?? null;
 $video = $_FILES['video'] ?? null;
 
 if ($title === '') {
     $error = 'Vul een titel in voor de video.';
-} elseif (empty($thumbnail) || $thumbnail['error'] !== UPLOAD_ERR_OK) {
-    $error = 'Er is een fout opgetreden bij het uploaden van de thumbnail.';
-} elseif (empty($video) || $video['error'] !== UPLOAD_ERR_OK) {
-    $error = 'Er is een fout opgetreden bij het uploaden van de video.';
+} elseif (!$thumbnail || !isset($thumbnail['error']) || $thumbnail['error'] !== UPLOAD_ERR_OK) {
+    $error = getUploadErrorMessage($thumbnail ?? ['error' => UPLOAD_ERR_NO_FILE], 'de thumbnail');
+} elseif (!$video || !isset($video['error']) || $video['error'] !== UPLOAD_ERR_OK) {
+    $error = getUploadErrorMessage($video ?? ['error' => UPLOAD_ERR_NO_FILE], 'de video');
 }
 
 $allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
@@ -51,7 +73,7 @@ if (!$error) {
         $error = 'Kan uploadmap voor thumbnails niet aanmaken.';
     }
     if (!is_dir($videoDir) && !mkdir($videoDir, 0755, true) && !is_dir($videoDir)) {
-        $error = 'Kan uploadmap voor video's niet aanmaken.';
+        $error = 'Kan uploadmap voor video niet aanmaken.';
     }
 }
 
