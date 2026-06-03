@@ -30,4 +30,10 @@ class VideoModel {
 
         return (int)$this->conn->lastInsertId();
     }
-}   
+
+    public function getAllVideos(): array {
+        $sql = "SELECT id, title, description, video_path, user_id FROM videos ORDER BY id DESC";
+        $stmt = $this->conn->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+}     

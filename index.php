@@ -5,6 +5,11 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: core/login.php');
     exit;
 }
+
+require_once __DIR__ . '/app/models/VideoModel.php';
+$db = include __DIR__ . '/core/Database.php';
+$videoModel = new VideoModel($db);
+$videos = $videoModel->getAllVideos();
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -47,14 +52,24 @@ if (!isset($_SESSION['user_id'])) {
 
         <!-- VIDEO GRID -->
         <div class="video-grid">
-            <!-- Placeholder video cards -->
-            <div class="video-card">
-                <div class="thumb"></div>
-                <p class="title">Video Title</p>
-                <p class="meta">Channel Name – 10K views – 2 days ago</p>
-            </div>
+            <?php if (empty($videos)): ?>
+                <div class="video-card">
+                    <p class="title">Geen video’s gevonden.</p>
+                </div>
+            <?php else: ?>
+                <?php foreach ($videos as $video): ?>
+                    <div class="video-card">
+                        <video class="thumb" controls muted preload="metadata">
+                            <source src="<?= htmlspecialchars($video['video_path'], ENT_QUOTES, 'UTF-8') ?>" type="video/mp4">
+                            Je browser ondersteunt HTML5 video niet.
+                        </video>
+                        <p class="title"><?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8') ?></p>
+                        <p class="meta"><?= nl2br(htmlspecialchars($video['description'], ENT_QUOTES, 'UTF-8')) ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
 
-            
     </main>
 
 </div>

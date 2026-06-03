@@ -12,11 +12,15 @@ $db = include __DIR__ . '/Database.php';
 $videoModel = new VideoModel($db);
 
 $error = '';
+$uploadBase = dirname(__DIR__) . '/upload';
+$videoDir = $uploadBase . '/videos';
+$videoName = '';
+$videoPath = '';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: upload.php');
     exit;
-} 
+}  
 
 function getUploadErrorMessage(array $file, string $label): string {
     switch ($file['error'] ?? UPLOAD_ERR_NO_FILE) {
