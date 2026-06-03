@@ -21,4 +21,13 @@ class VideoModel {
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$videoId, $userId]);
     }
+
+    public function saveVideo(string $title, string $description, string $thumbnailPath, string $videoPath, int $userId): int {
+        $sql = "INSERT INTO videos (title, description, thumbnail_path, video_path, user_id)
+                VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$title, $description, $thumbnailPath, $videoPath, $userId]);
+
+        return (int)$this->conn->lastInsertId();
+    }
 }

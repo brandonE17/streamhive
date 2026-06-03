@@ -6,7 +6,7 @@ $db = include __DIR__ . '/Database.php';
 
 $userModel = new UserModel($db);
 
-$error = ''; // een lege string om mijn foutmeldingen in op te slaan (AI)
+$error = ''; // een lege string om mijn foutmeldingen in op te slaan 
  
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
