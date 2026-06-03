@@ -42,36 +42,26 @@ function getUploadErrorMessage(array $file, string $label): string {
 
 $title = trim($_POST['title'] ?? '');
 $description = trim($_POST['description'] ?? '');
-$thumbnail = $_FILES['thumbnail'] ?? null;
 $video = $_FILES['video'] ?? null;
 
 if ($title === '') {
     $error = 'Vul een titel in voor de video.';
-} elseif (!$thumbnail || !isset($thumbnail['error']) || $thumbnail['error'] !== UPLOAD_ERR_OK) {
-    $error = getUploadErrorMessage($thumbnail ?? ['error' => UPLOAD_ERR_NO_FILE], 'de thumbnail');
 } elseif (!$video || !isset($video['error']) || $video['error'] !== UPLOAD_ERR_OK) {
     $error = getUploadErrorMessage($video ?? ['error' => UPLOAD_ERR_NO_FILE], 'de video');
 }
 
-$allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 $allowedVideoTypes = ['video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/x-matroska', 'video/webm'];
 
 if (!$error) {
-    if (!in_array($thumbnail['type'], $allowedImageTypes, true)) {
-        $error = 'Ongeldig bestandsformaat voor thumbnail. Gebruik JPG, PNG, GIF of WEBP.';
-    } elseif (!in_array($video['type'], $allowedVideoTypes, true)) {
+    if (!in_array($video['type'], $allowedVideoTypes, true)) {
         $error = 'Ongeldig bestandsformaat voor video. Gebruik MP4, MOV, AVI, MKV of WEBM.';
     }
 }
 
 if (!$error) {
     $uploadBase = dirname(__DIR__) . '/upload';
-    $thumbDir = $uploadBase . '/thumbnails';
     $videoDir = $uploadBase . '/videos';
 
-    if (!is_dir($thumbDir) && !mkdir($thumbDir, 0755, true) && !is_dir($thumbDir)) {
-        $error = 'Kan uploadmap voor thumbnails niet aanmaken.';
-    }
     if (!is_dir($videoDir) && !mkdir($videoDir, 0755, true) && !is_dir($videoDir)) {
         $error = 'Kan uploadmap voor video niet aanmaken.';
     }
@@ -84,25 +74,19 @@ if (!$error) {
         return trim($filename, '_');
     };
 
-    $thumbnailName = uniqid('thumb_', true) . '_' . $sanitizeFileName(basename($thumbnail['name']));
     $videoName = uniqid('video_', true) . '_' . $sanitizeFileName(basename($video['name']));
-
-    $thumbnailPath = $thumbDir . '/' . $thumbnailName;
     $videoPath = $videoDir . '/' . $videoName;
 
-    if (!move_uploaded_file($thumbnail['tmp_name'], $thumbnailPath)) {
-        $error = 'Kon de thumbnail niet opslaan.';
-    } elseif (!move_uploaded_file($video['tmp_name'], $videoPath)) {
+    if (!move_uploaded_file($video['tmp_name'], $videoPath)) {
         $error = 'Kon de video niet opslaan.';
     }
 }
 
 if (!$error) {
-    $thumbnailDb = 'upload/thumbnails/' . $thumbnailName;
     $videoDb = 'upload/videos/' . $videoName;
 
     try {
-        $videoModel->saveVideo($title, $description, $thumbnailDb, $videoDb, (int)$_SESSION['user_id']);
+        $videoModel->saveVideo($title, $description, $videoDb, (int)$_SESSION['user_id']);
         header('Location: ../index.php');
         exit;
     } catch (PDOException $e) {

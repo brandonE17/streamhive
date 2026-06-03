@@ -56,9 +56,6 @@ if (!isset($_SESSION['user_id'])) {
                 <label>Description</label>
                 <textarea name="description" rows="5"></textarea>
 
-                <label>Thumbnail</label>
-                <input type="file" name="thumbnail" accept="image/*" required>
-
                 <label>Video File</label>
                 <input type="file" name="video" accept="video/*" required>
 
