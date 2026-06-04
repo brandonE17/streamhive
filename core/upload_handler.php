@@ -17,6 +17,7 @@ $videoDir = $uploadBase . '/videos';
 $videoName = '';
 $videoPath = '';
 
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: upload.php');
     exit;
@@ -88,7 +89,8 @@ if (!$error) {
 
 if (!$error) {
     $videoDb = 'upload/videos/' . $videoName;
-
+ 
+ 
     try {
         $videoModel->saveVideo($title, $description, $videoDb, (int)$_SESSION['user_id']);
         header('Location: ../index.php');
