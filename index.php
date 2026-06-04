@@ -4,7 +4,7 @@ session_start();
 if (!isset($_SESSION['user_id'])) {
     header('Location: core/login.php');
     exit;
-}
+} 
 
 require_once __DIR__ . '/app/models/VideoModel.php';
 $db = include __DIR__ . '/core/Database.php';
