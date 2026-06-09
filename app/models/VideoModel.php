@@ -22,9 +22,9 @@ class VideoModel {
         $stmt->execute([$videoId, $userId]);
     }
 
-    public function saveVideo(string $title, string $description, string $videoPath, int $userId): int {
-        $sql = "INSERT INTO videos (title, description, video_path, user_id)
-                VALUES (?, ?, ?, ?)";
+    public function saveVideo(string $title, string $description, string $filename, string $videoPath, int $userId): int {
+        $sql = "INSERT INTO videos (title, description, video_path, filename user_id)
+                VALUES (?, ?, ?, ?, ? )"; 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$title, $description, $videoPath, $userId]);
 
