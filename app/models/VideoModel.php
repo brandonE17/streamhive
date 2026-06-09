@@ -22,15 +22,14 @@ class VideoModel {
         $stmt->execute([$videoId, $userId]);
     }
 
-    public function saveVideo(string $title, string $description, string $filename, string $videoPath, int $userId): int {
-        $sql = "INSERT INTO videos (title, description, video_path, filename user_id)
-                VALUES (?, ?, ?, ?, ? )"; 
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$title, $description, $videoPath, $userId]);
+  public function saveVideo(string $title, string $description, string $videoPath, string $filename, int $userId): int {
+    $sql = "INSERT INTO videos (title, description, video_path, filename, user_id)
+            VALUES (?, ?, ?, ?, ?)";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$title, $description, $videoPath, $filename, $userId]);
 
-        return (int)$this->conn->lastInsertId();
-    }
-
+    return (int)$this->conn->lastInsertId();
+}
     public function getAllVideos(): array {
         $sql = "SELECT id, title, description, video_path, user_id FROM videos ORDER BY id DESC";
         $stmt = $this->conn->query($sql);

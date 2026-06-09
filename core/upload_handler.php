@@ -88,10 +88,17 @@ if (!$error) {
 
 if (!$error) {
     $videoDb = 'upload/videos/' . $videoName;
- 
-  
+    $filename = basename($video['name']);
+
     try {
-        $videoModel->saveVideo($title, $description, $videoDb, (int)$_SESSION['user_id']);
+        $videoModel->saveVideo(
+            $title,
+            $description,
+            $videoDb,
+            $filename,
+            (int)$_SESSION['user_id']
+        );
+ 
         header('Location: ../index.php');
         exit;
     } catch (PDOException $e) {
