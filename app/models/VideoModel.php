@@ -46,6 +46,26 @@ public function getVideoById(int $id): ?array
 
     $video = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    return $video ?: null;
+    return $video ?: null; 
 }
+public function getComments(int $videoId): array
+{
+    $sql = "
+        SELECT
+            comments.content,
+            comments.created_at,
+            users.email
+        FROM comments
+        INNER JOIN users
+            ON comments.user_id = users.id
+        WHERE comments.video_id = ?
+        ORDER BY comments.created_at DESC
+    ";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$videoId]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 } 

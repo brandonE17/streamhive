@@ -64,7 +64,7 @@ $videos = $videoModel->getAllVideos();
 
         <img
             class="thumb"
-            src="upload/thumbnails/daniele.avif" 
+            src="upload/thumbnails/ethan.png"  
             alt="<?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8') ?>"
         >
 
@@ -76,7 +76,7 @@ $videos = $videoModel->getAllVideos();
 </div>
                 <?php endforeach; ?>
             <?php endif; ?>
-        </div>
+        </div> 
 
     </main>
 

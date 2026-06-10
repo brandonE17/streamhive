@@ -32,5 +32,26 @@ if (!$video) {
 
 <p><?= htmlspecialchars($video['description']) ?></p>
 
+<h2>Reacties</h2>
+
+<form action="add_comment.php" method="POST">
+
+    <input
+        type="hidden"
+        name="video_id"
+        value="<?= $video['id'] ?>"
+    >
+
+    <textarea
+        name="comment"
+        rows="4"
+        required
+    ></textarea>
+
+    <button type="submit">
+        Plaats reactie
+    </button>
+
+</form>
 </body>
 </html>
