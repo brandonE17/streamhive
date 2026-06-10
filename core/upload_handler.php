@@ -85,7 +85,7 @@ if (!$error) {
         $error = 'Kon de video niet opslaan.';
     }
 }
-
+ 
 if (!$error) {
     $videoDb = 'upload/videos/' . $videoName;
     $filename = basename($video['name']);
