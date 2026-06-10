@@ -1,0 +1,36 @@
+<?php
+
+session_start();
+
+require_once __DIR__ . '/app/models/VideoModel.php';
+
+$db = include __DIR__ . '/core/Database.php';
+
+$videoModel = new VideoModel($db);
+
+$id = (int)($_GET['id'] ?? 0);
+
+$video = $videoModel->getVideoById($id);
+
+if (!$video) {
+    die('Video niet gevonden');
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title><?= htmlspecialchars($video['title']) ?></title>
+</head>
+<body>
+
+<h1><?= htmlspecialchars($video['title']) ?></h1>
+
+<video controls width="800">
+    <source src="<?= htmlspecialchars($video['video_path']) ?>" type="video/mp4">
+</video>
+
+<p><?= htmlspecialchars($video['description']) ?></p>
+
+</body>
+</html>

@@ -59,13 +59,21 @@ $videos = $videoModel->getAllVideos();
             <?php else: ?>
                 <?php foreach ($videos as $video): ?>
                     <div class="video-card">
-                        <video class="thumb" controls muted preload="metadata">
-                            <source src="<?= htmlspecialchars($video['video_path'], ENT_QUOTES, 'UTF-8') ?>" type="video/mp4">
-                            Je browser ondersteunt HTML5 video niet.
-                        </video>
-                        <p class="title"><?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8') ?></p>
-                        <p class="meta"><?= nl2br(htmlspecialchars($video['description'], ENT_QUOTES, 'UTF-8')) ?></p>
-                    </div>
+
+    <a href="watch.php?id=<?= $video['id'] ?>">
+
+        <img
+            class="thumb"
+            src="upload/thumbnails/daniele.avif" 
+            alt="<?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8') ?>"
+        >
+
+    </a>
+
+    <p class="title"><?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8') ?></p>
+    <p class="meta"><?= nl2br(htmlspecialchars($video['description'], ENT_QUOTES, 'UTF-8')) ?></p>
+
+</div>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>

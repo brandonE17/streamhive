@@ -34,5 +34,18 @@ class VideoModel {
         $sql = "SELECT id, title, description, video_path, user_id FROM videos ORDER BY id DESC";
         $stmt = $this->conn->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+
+        
     }
-}     
+public function getVideoById(int $id): ?array
+{
+    $sql = "SELECT * FROM videos WHERE id = ?";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$id]);
+
+    $video = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $video ?: null;
+}
+} 
