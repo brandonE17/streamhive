@@ -35,7 +35,7 @@ if (!$video) {
 <h2>Reacties</h2>
 
 <form action="add_comment.php" method="POST">
-
+ 
     <input
         type="hidden"
         name="video_id"
