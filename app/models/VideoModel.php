@@ -20,6 +20,8 @@ class VideoModel {
                 VALUES (?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$videoId, $userId]);
+
+        
     }
 
   public function saveVideo(string $title, string $description, string $videoPath, string $filename, int $userId): int {
