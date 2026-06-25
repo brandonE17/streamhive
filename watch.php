@@ -8,9 +8,14 @@ $db = include __DIR__ . '/core/Database.php';
 
 $videoModel = new VideoModel($db);
 
+require_once __DIR__ . '/app/models/CommentModel.php';
+
+$commentModel = new CommentModel($db);
+
 $id = (int)($_GET['id'] ?? 0);
 
 $video = $videoModel->getVideoById($id);
+$comments = $commentModel->getCommentsByVideoId($id);
 
 if (!$video) {
     die('Video niet gevonden');
@@ -55,3 +60,39 @@ if (!$video) {
 </form>
 </body>
 </html>
+
+<hr>
+
+<h3>Alle reacties</h3>
+
+<?php if (empty($comments)): ?>
+
+    <p>Er zijn nog geen reacties.</p>
+
+<?php else: ?>
+
+    <?php foreach ($comments as $comment): ?>
+
+        <div class="comment">
+
+            <strong>
+                <?= htmlspecialchars($comment['email']) ?> 
+            </strong>
+
+            <br>
+
+            <small>
+                <?= htmlspecialchars($comment['created_at']) ?>
+            </small>
+
+            <p>
+                <?= nl2br(htmlspecialchars($comment['content'])) ?>
+            </p>
+
+        </div>
+
+        <hr>
+
+    <?php endforeach; ?>
+ 
+<?php endif; ?> 
