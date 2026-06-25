@@ -2,6 +2,8 @@
 
 session_start();
 
+
+
 require_once __DIR__ . '/app/models/VideoModel.php';
 
 $db = include __DIR__ . '/core/Database.php';
@@ -12,7 +14,14 @@ require_once __DIR__ . '/app/models/CommentModel.php';
 
 $commentModel = new CommentModel($db);
 
+
 $id = (int)($_GET['id'] ?? 0);
+
+require_once __DIR__ . '/app/models/LikeModel.php';
+
+$likeModel = new LikeModel($db);
+
+$likeCount = $likeModel->countLikes($id);
 
 $video = $videoModel->getVideoById($id);
 $comments = $commentModel->getCommentsByVideoId($id);
@@ -37,6 +46,24 @@ if (!$video) {
 
 <p><?= htmlspecialchars($video['description']) ?></p>
 
+<form action="like_video.php" method="POST">
+
+    <input
+        type="hidden"
+        name="video_id"
+        value="<?= $video['id'] ?>"
+    >
+
+    <button type="submit">
+        Like
+    </button>
+
+</form>
+
+<p>
+    Likes: <?= $likeCount ?>
+</p> 
+ 
 <h2>Reacties</h2>
 
 <form action="add_comment.php" method="POST">
