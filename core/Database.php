@@ -4,7 +4,7 @@ $port = 3306;
 $user = "root"; 
 $pass = "";
 $dbname = "streamhive";
-
+ 
 try {
     $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $user, $pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
