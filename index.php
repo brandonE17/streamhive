@@ -64,7 +64,7 @@ $videos = $videoModel->getAllVideos();
 
         <img
             class="thumb"
-            src="upload/thumbnails/ethan.png"  
+            src="upload/thumbnails/ethan.png"   
             alt="<?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8') ?>"
         >
 
